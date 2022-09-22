@@ -1,6 +1,6 @@
 var operator = null;
 var inputValueMemo= 0;
-
+var total = 0;
 function getContenClick(event) {
    const value = event.target.innerHTML;
    filterAction(value);
@@ -60,6 +60,7 @@ function deleteInput() {
     inputScreen.value = "0"
     this.inputValueMemo = 0;
     this.operator = "";
+    this.total=0;
 }
 
 function setOperation(operator) {
@@ -75,8 +76,11 @@ function calculation() {
     const inputScreen = document.getElementsByClassName("calculator__screen")[0]
     let valueOne = transformComaToPoint(this.inputValueMemo);
     let valueTwo = transformComaToPoint(inputScreen.value);
-    let total = 0;
+    //let total = 0;
 
+    
+        
+    
     if (this.operator === "+" && inputScreen.value !== "") {
         total = valueOne + valueTwo;    
     }
