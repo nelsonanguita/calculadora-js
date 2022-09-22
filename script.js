@@ -118,7 +118,8 @@ function calculation() {
     if (this.operator ==="+/-" && inputScreen.value !=="") {
 
         if (valueTwo>0) {
-            total = -valueTwo;    
+            total = -valueTwo;
+            console.log(total)    
         }
     }
 
