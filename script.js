@@ -90,6 +90,8 @@ function calculation() {
     }
 
     if (this.operator === "*" && inputScreen.value !=="") {
+       console.log(valueOne)
+       console.log(valueTwo)
         if (valueOne !== 0) {
             total = valueOne * valueTwo
         } else {
@@ -112,7 +114,7 @@ function calculation() {
     if (this.operator ==="+/-" && inputScreen.value !=="") {
 
         if (valueTwo>0) {
-            total = valueTwo;    
+            total = -valueTwo;    
         }
     }
 
