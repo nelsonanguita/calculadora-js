@@ -26,6 +26,10 @@ const filterAction = value =>{
     value === "-" ? setOperation('-') : null;
     value === "+" ? setOperation('+') : null;
     value === "/" ? setOperation('/') : null;
+    value === "+/-" ? setOperation('+/-') : null;
+
+
+    value === "=" ? calculation() : null;
 
 }
 
@@ -43,36 +47,92 @@ function addNumberInput(value) {
 
     }
 
+    if (inputScreen.value === "" && value === ",") {
+        inputScreen.value = 0 + value;
+        return;
+    }
+
     inputScreen.value = inputValue+value;
 }
 
 function deleteInput() {
     const inputScreen = document.getElementsByClassName('calculator__screen')[0];
     inputScreen.value = "0"
+    this.inputValueMemo = 0;
+    this.operator = "";
 }
 
 function setOperation(operator) {
     const inputScreenValue = document.getElementsByClassName("calculator__screen")[0].value;
     this.operator = operator;
 
-    if (inputScreenValue !=0) {
+    if (inputScreenValue !==0) {
         calculation();
     }
 }
 
 function calculation() {
     const inputScreen = document.getElementsByClassName("calculator__screen")[0]
-    let valueOne = this.inputValueMemo;
-    let valueTwo = inputScreen.value;
+    let valueOne = transformComaToPoint(this.inputValueMemo);
+    let valueTwo = transformComaToPoint(inputScreen.value);
     let total = 0;
 
     if (this.operator === "+" && inputScreen.value !== "") {
         total = valueOne + valueTwo;    
     }
+
+    if (this.operator === "-" && inputScreen.value !=="") {
+        if (valueOne !== 0) {
+            total = valueOne - valueTwo
+        } else {
+            total = valueTwo
+        }
+    }
+
+    if (this.operator === "*" && inputScreen.value !=="") {
+        if (valueOne !== 0) {
+            total = valueOne * valueTwo
+        } else {
+            total = valueTwo
+        }
+    }
+
+    if (this.operator === "/" && inputScreen.value !=="") {
+        if (valueOne !== 0) {
+            total = valueOne / valueTwo
+        } else {
+            total = valueTwo
+        }
+    }
+
+    if (this.operator ==="%" && inputScreen.value !=="") {
+        total = valueTwo / 100;
+    }
+
+    if (this.operator ==="+/-" && inputScreen.value !=="") {
+
+        if (valueTwo>0) {
+            total = valueTwo;    
+        }
+    }
+
+    total = transFormPoinToComa(total)
     this.inputValueMemo = total;
     inputScreen.value = "";
     inputScreen.placeholder = total;
 }
 
+function transformComaToPoint(value) {
+    if (typeof value !== "number") {
+        let resultTransform = value.replace(',', '.')
+        return parseFloat(resultTransform)
+    }
+    return value;
+}
 
+function transFormPoinToComa(value) {
+    let resultTransform = value.toString();
+    resultTransform = resultTransform.replace('.',',')
+    return resultTransform;
+}
 
